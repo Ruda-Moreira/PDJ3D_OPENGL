@@ -11,3 +11,5 @@ Atividades:
 Desafios:
 - Desafio 5: Ondas
 - Desafio 6: Esfera
+
+TDE
