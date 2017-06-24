@@ -4,19 +4,18 @@ openGL exercises
 Atividades:
 
 rotationShapes:
-- Atividade 4: Pentágono
-- Atividade 5: Cubo
-- Atividade 7: Camera FPS
+- Atividade 4: Pentágono (feito)
+- Atividade 5: Cubo (feito)
+- Atividade 7: Camera FPS (feito)
 
 terrain:
-- Atividade 6: Terreno
-- TDE perlin noise
+- Atividade 6: Terreno (feito)
 
 lights:
-- Atividade 8: Luz posicional
+- Atividade 8: Luz posicional (não feito)
 
 Desafios:
 
 terrain:
-- Desafio 5: Ondas
-- Desafio 6: Esfera
+- Desafio 5: Ondas (não feito)
+- Desafio 6: Esfera (não feito)
