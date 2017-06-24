@@ -37,6 +37,8 @@ public class Terrain implements Scene {
             512.0f);                         //specular power    
     private float angleX = 0.0f;
     private float angleY = 0.5f;
+    private float uScale = 0.5f;
+    private File pngimg;
     
     @Override
     public void init() {
@@ -45,19 +47,25 @@ public class Terrain implements Scene {
         glPolygonMode(GL_FRONT_FACE, GL_LINE);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+        pngimg = new File("..\\..\\img\\img\\opengl\\heights\\river.png");
+
         try {
-            mesh = MeshFactory.loadTerrain(new File("..\\..\\img\\img\\opengl\\heights/volcano.png"), 0.5f);
+            mesh = MeshFactory.loadTerrain(pngimg, uScale);
             System.out.println("Done!");
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
+
         camera.getPosition().y = 200.0f;
         camera.getPosition().z = 200.0f;
     }
 
     @Override
     public void update(float secs) {
+
+
+
         if (keys.isPressed(GLFW_KEY_ESCAPE)) {
             glfwSetWindowShouldClose(glfwGetCurrentContext(), GLFW_TRUE);
             return;
@@ -72,16 +80,50 @@ public class Terrain implements Scene {
         }
         
         if (keys.isDown(GLFW_KEY_W)) {
-            angleX += Math.toRadians(180) * secs;
+            //angleX += Math.toRadians(180) * secs;
+            camera.moveFront(100.0f * secs);
         }
 
         if (keys.isDown(GLFW_KEY_S)) {
-            angleX -= Math.toRadians(180) * secs;
+            //angleX -= Math.toRadians(180) * secs;
+            camera.moveFront(-100.0f * secs);
         }
         
         if (keys.isDown(GLFW_KEY_SPACE)) {
             angleX = 0;
             angleY = 0;
+        }
+        if (keys.isDown(GLFW_KEY_K)){
+            uScale += 1.0f * secs;
+        }
+        if (keys.isDown(GLFW_KEY_L)){
+            uScale -= 1.0f * secs;
+        }
+
+        if (keys.isDown(GLFW_KEY_UP)) {
+            //camera.moveFront(60.0f * secs);
+            camera.rotateInX((float)Math.toRadians(45)*secs);
+        }
+
+        if (keys.isDown(GLFW_KEY_DOWN)) {
+            //camera.moveFront(-60.0f * secs);
+            camera.rotateInX((float)Math.toRadians(-45)*secs);
+        }
+
+        if (keys.isDown(GLFW_KEY_LEFT)){
+            camera.rotateInY((float)Math.toRadians(180)*secs);
+        }
+
+        if (keys.isDown(GLFW_KEY_RIGHT)){
+            camera.rotateInY((float)Math.toRadians(-180)*secs);
+        }
+
+        if (keys.isDown(GLFW_KEY_Z)){
+            camera.strafeLeft(-100.0f* secs);
+        }
+
+        if (keys.isDown(GLFW_KEY_C)){
+            camera.strafeRight(100.0f* secs);
         }
     }
 
@@ -93,7 +135,8 @@ public void draw() {
     shader.bind()
         .setUniform("uProjection", camera.getProjectionMatrix())
         .setUniform("uView", camera.getViewMatrix())
-        .setUniform("uCameraPosition", camera.getPosition());        
+        .setUniform("uCameraPosition", camera.getPosition())
+        .setUniform("uScale", uScale);
     light.apply(shader);
     material.apply(shader);
     shader.unbind();

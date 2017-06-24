@@ -11,6 +11,7 @@ import br.pucpr.mage.Scene;
 import br.pucpr.mage.Window;
 
 public class RotatingCube implements Scene {
+
     private Keyboard keys = Keyboard.getInstance();
 
     private Mesh mesh;
@@ -20,6 +21,7 @@ public class RotatingCube implements Scene {
 
     @Override
     public void init() {
+
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -29,6 +31,7 @@ public class RotatingCube implements Scene {
 
     @Override
     public void update(float secs) {
+
         if (keys.isPressed(GLFW_KEY_ESCAPE)) {
             glfwSetWindowShouldClose(glfwGetCurrentContext(), GLFW_TRUE);
             return;
@@ -73,6 +76,12 @@ public class RotatingCube implements Scene {
         if (keys.isDown(GLFW_KEY_C)){
             camera.strafeRight(6* secs);
         }
+
+        if (keys.isDown(GLFW_KEY_SPACE)) {
+            angleX = 0;
+            angleY = 0;
+        }
+
     }
 
     @Override
